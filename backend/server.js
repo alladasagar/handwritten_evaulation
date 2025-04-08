@@ -1,0 +1,41 @@
+const express = require('express');
+const multer = require('multer');
+const { spawn } = require('child_process');
+const cors = require('cors');
+const fs = require('fs');
+require('dotenv').config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/evaluate', upload.single('image'), (req, res) => {
+  const imagePath = req.file.path;
+  const predefinedAnswer = req.body.answer;
+  const gcpCreds = process.env.GOOGLE_CREDENTIALS_PATH;
+
+  const python = spawn('python3', ['evaluate.py', imagePath, gcpCreds, predefinedAnswer]);
+
+  let result = '';
+  python.stdout.on('data', (data) => {
+    result += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  python.on('close', (code) => {
+    fs.unlinkSync(imagePath); // clean up image
+    try {
+      const parsed = JSON.parse(result);
+      res.json(parsed);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to parse Python output.' });
+    }
+  });
+});
+
+app.listen(5000, () => console.log('Server running on http://localhost:5000'));
