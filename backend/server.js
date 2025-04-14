@@ -6,7 +6,15 @@ const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://hand-written-evaluation.vercel.app', // Your Vercel frontend
+    'http://localhost:3000' // For local development
+  ],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Added Authorization if you use it
+  credentials: true // If you need to send cookies/auth headers
+}));
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
