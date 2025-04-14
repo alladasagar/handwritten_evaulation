@@ -18,8 +18,8 @@ export default function UploadForm() {
 
     try {
       setLoading(true);
-      // In app.js, change the axios post URL:
-      const res = await axios.post('https://hand-written-evaluation-1.onrender.com/evaluate', formData); 
+      // Update the URL to use localhost for local development
+      const res = await axios.post('http://localhost:5000/evaluate', formData); 
       setResult(res.data);
     } catch (err) {
       console.error(err);
