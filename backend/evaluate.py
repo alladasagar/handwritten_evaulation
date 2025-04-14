@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Set credentials (set path from Node)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sys.argv[2]
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 image_path = sys.argv[1]
 predefined_answer = sys.argv[3]
