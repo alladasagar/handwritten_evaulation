@@ -11,6 +11,13 @@ app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
 
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Handwritten Answer Evaluation API!');
+});
+
+
+
 app.post('/evaluate', upload.single('image'), (req, res) => {
   const imagePath = req.file.path;
   const predefinedAnswer = req.body.answer;

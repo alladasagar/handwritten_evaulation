@@ -18,7 +18,7 @@ export default function UploadForm() {
 
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost:5000/evaluate', formData);
+      const res = await axios.post('https://hand-written-evaluation-1.onrender.com', formData);
       setResult(res.data);
     } catch (err) {
       console.error(err);
