@@ -19,7 +19,7 @@ export default function UploadForm() {
     try {
       setLoading(true);
       // Update the URL to use localhost for local development
-      const res = await axios.post('https://handwritten-evaulation.vercel.app/evaluate', formData);
+      const res = await axios.post('https://handwritten-evaulation.onrender.com/evaluate', formData);
       setResult(res.data);
     } catch (err) {
       console.error(err);

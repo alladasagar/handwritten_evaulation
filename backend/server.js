@@ -8,7 +8,6 @@ require('dotenv').config();
 const app = express();
 const allowedOrigins = [
   "https://handwritten-evaulation.vercel.app", 
-  "https://handwritten-evaulation.onrender.com" 
 ];
 
 app.use(
