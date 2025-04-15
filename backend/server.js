@@ -6,14 +6,26 @@ const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-const corsOptions = {
-  origin: 'https://handwritten-evaulation.vercel.app',  // Your frontend URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true  // If you're using cookies or sessions, this is necessary
-};
+const allowedOrigins = [
+  "https://handwritten-evaulation.vercel.app", 
+  "https://handwritten-evaulation.onrender.com" 
+];
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.error(" Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"], 
+  })
+)
 
 
 
