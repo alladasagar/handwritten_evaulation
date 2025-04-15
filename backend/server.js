@@ -28,7 +28,13 @@ app.post('/evaluate', upload.single('image'), (req, res) => {
   const predefinedAnswer = req.body.answer;
   const gcpCreds = process.env.GOOGLE_CREDENTIALS_PATH;
 
-  const python = spawn('python3', ['evaluate.py', imagePath, gcpCreds, predefinedAnswer]);
+  const python = spawn('python3', [
+    'evaluate.py',
+    imagePath,
+    process.env.GOOGLE_CREDENTIALS_PATH.replace(/\\/g, '/'), // safer cross-platform path
+    predefinedAnswer
+  ]);
+  
 
   let result = '';
   python.stdout.on('data', (data) => {
