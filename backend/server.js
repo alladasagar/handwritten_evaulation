@@ -8,12 +8,13 @@ require('dotenv').config();
 const app = express();
 app.use(cors({
   origin: [
-    'http://localhost:3000', // Your local frontend
+    'https://handwritten-evaulation.vercel.app', // Your deployed frontend URL
   ],
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true 
 }));
+
 
 app.use(express.json());
 
