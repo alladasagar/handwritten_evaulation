@@ -1,0 +1,6 @@
+numpy
+transformers
+torch
+google-cloud-vision
+sentence-transformers
+scikit-learn

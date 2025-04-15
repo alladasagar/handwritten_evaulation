@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: handwritten-eval-backend
+    env: node
+    rootDir: backend
+    buildCommand: |
+      pip install -r requirements.txt
+      npm install
+    startCommand: node server.js
+    autoDeploy: true
+    envVars:
+      - key: GOOGLE_CREDENTIALS_PATH
+        value: /etc/secrets/your-creds.json  # Make sure this matches your upload path in Render Secrets
+
+files:
+  - path: backend/requirements.txt
+    type: python
