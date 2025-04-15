@@ -6,14 +6,15 @@ const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-app.use(cors({
-  origin: [
-    'https://handwritten-evaulation.vercel.app', // Your deployed frontend URL
-  ],
+const corsOptions = {
+  origin: 'https://handwritten-evaulation.vercel.app',  // Your frontend URL
   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-  credentials: true 
-}));
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true  // If you're using cookies or sessions, this is necessary
+};
+
+app.use(cors(corsOptions));
+
 
 
 app.use(express.json());
