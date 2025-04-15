@@ -1,6 +1,9 @@
+Flask
+flask-cors
+werkzeug
 numpy
-transformers
-torch
 google-cloud-vision
 sentence-transformers
+transformers
 scikit-learn
+torch
