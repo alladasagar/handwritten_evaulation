@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
 import os
+from flask import Flask, request, jsonify
+from werkzeug.utils import secure_filename
 import subprocess
 import json
-from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 # Initialize Flask app
@@ -19,6 +19,10 @@ CORS(app, resources={r"/*": {"origins": allowed_origins}})
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png', 'gif', 'bmp'}
+
+# Ensure the uploads directory exists
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 # Function to check allowed file extensions
 def allowed_file(filename):
